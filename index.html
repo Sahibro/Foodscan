@@ -1,97 +1,248 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' xmlns='http://www.w3.org' xmlns:b='http://www.google.com' xmlns:data='http://www.google.com' xmlns:expr='http://www.google.com'>
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data'>
 <head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
   <title><data:blog.pageTitle/></title>
-  <b:skin><![CDATA[
-    /* CSS Animations & Design */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f7f6;
-      margin: 0; padding: 0;
-      scroll-behavior: smooth;
-    }
-    .header {
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-      animation: fadeInDown 1s ease-out;
-    }
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .tool-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      animation: fadeInUp 0.8s forwards;
-    }
-    .tool-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #1e3c72;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-    .btn:hover { background: #ff9800; }
 
-    /* Keyframes for Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+  <b:include data='blog' name='all-head-content'/>
+
+  <style type="text/css">
+    /* Reset and basic */
+    :root{
+      --brand:#0b5cff;
+      --accent:#00bfa6;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --max-width:1200px;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    html,body{height:100%;margin:0;font-family:Inter, Roboto, Arial, sans-serif;background:var(--bg);color:#111;}
+    a{color:var(--brand);text-decoration:none}
+    .container{max-width:var(--max-width);margin:24px auto;padding:0 16px;display:flex;gap:24px;align-items:flex-start}
+    /* Sidebar */
+    .sidebar{width:320px;flex:0 0 320px;background:var(--card);border-radius:10px;padding:20px;box-shadow:0 6px 18px rgba(12,20,40,0.06)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .muted{color:var(--muted);font-size:13px;margin-top:8px}
+    .about{margin-top:18px;font-size:14px;line-height:1.5}
+    .contact{margin-top:14px;font-size:13px}
+    /* Main area */
+    .main{flex:1}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .search{display:flex;gap:8px;align-items:center}
+    .search input{padding:10px 12px;border-radius:8px;border:1px solid #e6e9ef;background:#fff;min-width:260px}
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+    .tool-card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(12,20,40,0.04);cursor:pointer;transition:transform .14s ease,box-shadow .14s ease;display:flex;flex-direction:column;gap:8px}
+    .tool-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(12,20,40,0.08)}
+    .tool-title{font-weight:600}
+    .tool-desc{font-size:13px;color:var(--muted)}
+    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:#f1f5f9;font-size:12px;color:#334155}
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
+    .modal{width:100%;max-width:1100px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.5);display:flex;flex-direction:column;max-height:90vh}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eef2f7}
+    .modal-body{padding:12px 16px;overflow:auto;flex:1;background:#fbfdff}
+    .modal-close{background:transparent;border:0;font-size:18px;cursor:pointer}
+    /* Responsive */
+    @media (max-width:900px){
+      .container{flex-direction:column;padding:12px}
+      .sidebar{width:100%;order:2}
+      .main{order:1}
     }
-  ]]></b:skin>
+    /* Utility */
+    .small{font-size:13px;color:var(--muted)}
+  </style>
+
+  <script type="text/javascript">
+    // Minimal JS to handle modal and dynamic tool loading
+    document.addEventListener('DOMContentLoaded', function(){
+      // Open modal with tool content
+      function openTool(toolId){
+        var backdrop = document.getElementById('modal-backdrop');
+        var title = document.getElementById('modal-title');
+        var body = document.getElementById('modal-body');
+        // Find tool definition
+        var def = window.__TOOLS__ && window.__TOOLS__[toolId];
+        if(!def){ body.innerHTML = '<p class="small">Tool content not found. Edit template to add tool HTML or URL.</p>'; title.textContent='Not Found'; backdrop.style.display='flex'; return; }
+        title.textContent = def.title || 'Tool';
+        // If externalUrl provided, embed via iframe; else use inline HTML
+        if(def.externalUrl){
+          body.innerHTML = '<iframe src="'+def.externalUrl+'" style="width:100%;height:70vh;border:0;border-radius:6px"></iframe>';
+        } else if(def.inlineHtml){
+          body.innerHTML = def.inlineHtml;
+        } else {
+          body.innerHTML = '<p class="small">No content provided for this tool.</p>';
+        }
+        backdrop.style.display='flex';
+      }
+
+      // Close modal
+      function closeModal(){
+        var backdrop = document.getElementById('modal-backdrop');
+        var body = document.getElementById('modal-body');
+        backdrop.style.display='none';
+        body.innerHTML = '';
+      }
+
+      // Attach click handlers for tool cards
+      document.querySelectorAll('[data-tool-id]').forEach(function(el){
+        el.addEventListener('click', function(){
+          var id = this.getAttribute('data-tool-id');
+          openTool(id);
+        });
+      });
+
+      // Close buttons
+      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+      document.getElementById('modal-backdrop').addEventListener('click', function(e){
+        if(e.target === this) closeModal();
+      });
+
+      // Simple search filter
+      var searchInput = document.getElementById('tool-search');
+      if(searchInput){
+        searchInput.addEventListener('input', function(){
+          var q = this.value.trim().toLowerCase();
+          document.querySelectorAll('.tool-card').forEach(function(card){
+            var t = card.getAttribute('data-tool-title').toLowerCase();
+            var d = card.getAttribute('data-tool-desc') || '';
+            if(!q || t.indexOf(q) !== -1 || d.indexOf(q) !== -1) card.style.display='flex'; else card.style.display='none';
+          });
+        });
+      }
+    });
+  </script>
 </head>
+
 <body>
-  <div class='header'>
-    <h1>Welcome to My B2B Tools Portal</h1>
-    <p>Premium Business Solutions at Your Fingertips</p>
+  <b:section class='main-wrapper' id='main-wrapper' showaddelement='no'>
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">B2B</div>
+          <div>
+            <h1>Global B2B Solutions</h1>
+            <div class="muted">Enterprise tools and integrations for global teams</div>
+          </div>
+        </div>
+
+        <div class="about">
+          <strong>About</strong>
+          <p class="small">We build and curate tools for B2B operations, sales enablement, analytics, and integrations. Add your tools below and open them directly from the dashboard.</p>
+        </div>
+
+        <div class="contact">
+          <div class="small"><strong>Contact</strong></div>
+          <div class="small">Email: <a href="mailto:contact@example.com">contact@example.com</a></div>
+          <div class="small">Location: Lucknow, India</div>
+        </div>
+
+        <div style="margin-top:16px">
+          <div class="small"><strong>Branding</strong></div>
+          <div class="small">Use CSS variables at top of template to change colors and fonts.</div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="main">
+        <div class="topbar">
+          <div>
+            <h2 style="margin:0">Tools Dashboard</h2>
+            <div class="small">Click any tool to open it in the viewer</div>
+          </div>
+          <div class="search">
+            <input id="tool-search" placeholder="Search tools by name or description"/>
+          </div>
+        </div>
+
+        <section class="tools-grid" id="tools-grid">
+          <!-- Tool cards will be rendered here by the static HTML below -->
+          <!-- TOOLS LIST START -->
+          <!--
+            To add a new tool:
+            1) Add an entry in the __TOOLS__ object in the script block below with a unique key.
+            2) Add a matching .tool-card element here with data-tool-id equal to that key.
+            For external tools use externalUrl. For inline tools use inlineHtml (string with HTML).
+          -->
+          <div class="tool-card" data-tool-id="crm" data-tool-title="CRM Dashboard" data-tool-desc="Customer relationship management overview">
+            <div class="tag">CRM</div>
+            <div class="tool-title">CRM Dashboard</div>
+            <div class="tool-desc">View leads, accounts, and pipeline analytics.</div>
+          </div>
+
+          <div class="tool-card" data-tool-id="analytics" data-tool-title="Analytics Studio" data-tool-desc="Sales and traffic analytics">
+            <div class="tag">Analytics</div>
+            <div class="tool-title">Analytics Studio</div>
+            <div class="tool-desc">Custom dashboards for KPIs and reports.</div>
+          </div>
+
+          <div class="tool-card" data-tool-id="integrations" data-tool-title="Integrations Hub" data-tool-desc="Connectors and APIs">
+            <div class="tag">Integrations</div>
+            <div class="tool-title">Integrations Hub</div>
+            <div class="tool-desc">Manage connectors to third party services.</div>
+          </div>
+          <!-- TOOLS LIST END -->
+        </section>
+      </main>
+    </div>
+  </b:section>
+
+  <!-- Modal viewer -->
+  <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div id="modal-title" style="font-weight:600">Tool</div>
+        <button id="modal-close-btn" class="modal-close" aria-label="Close">✕</button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <!-- Tool content injected here -->
+      </div>
+    </div>
   </div>
 
-  <div class='tool-grid'>
-    <!-- Example Tool 1 -->
-    <div class='tool-card' style='animation-delay: 0.2s;'>
-      <h3>GST Calculator</h3>
-      <p>Calculate your business taxes instantly with precision.</p>
-      <a class='btn' href='#'>Open Tool</a>
-    </div>
+  <!-- Tool definitions -->
+  <script type="text/javascript">
+    // Define your tools here. Keys must match data-tool-id attributes above.
+    // For each tool you can provide:
+    //  - title: string
+    //  - externalUrl: string (optional) to embed via iframe
+    //  - inlineHtml: string (optional) raw HTML to inject into modal
+    // Example: add more tools by copying the object entry.
+    window.__TOOLS__ = {
+      "crm": {
+        title: "CRM Dashboard",
+        inlineHtml: "<h3>CRM Dashboard</h3><p class='small'>This is a placeholder CRM view. Replace this HTML with your actual tool markup or set externalUrl to embed a hosted app.</p><div style='margin-top:12px'><button onclick=\"alert('Demo action')\" style='padding:8px 12px;border-radius:6px;border:0;background:var(--brand);color:#fff'>Run Demo</button></div>"
+      },
+      "analytics": {
+        title: "Analytics Studio",
+        externalUrl: "https://example.com/analytics-embed"
+      },
+      "integrations": {
+        title: "Integrations Hub",
+        inlineHtml: "<h3>Integrations Hub</h3><p class='small'>List of connectors and status.</p><ul><li>Salesforce - Connected</li><li>HubSpot - Disconnected</li></ul>"
+      }
+    };
 
-    <!-- Example Tool 2 -->
-    <div class='tool-card' style='animation-delay: 0.4s;'>
-      <h3>Invoice Generator</h3>
-      <p>Create professional B2B invoices in seconds.</p>
-      <a class='btn' href='#'>Start Creating</a>
-    </div>
+    // Render tool cards dynamically to ensure click handlers attach even if you add cards later
+    (function renderToolCards(){
+      var grid = document.getElementById('tools-grid');
+      // If you prefer dynamic rendering, uncomment below and comment static cards above.
+      // for(var key in window.__TOOLS__){
+      //   var t = window.__TOOLS__[key];
+      //   var card = document.createElement('div');
+      //   card.className = 'tool-card';
+      //   card.setAttribute('data-tool-id', key);
+      //   card.setAttribute('data-tool-title', t.title || key);
+      //   card.innerHTML = '<div class=\"tag\">Tool</div><div class=\"tool-title\">'+(t.title||key)+'</div><div class=\"tool-desc small\">Click to open</div>';
+      //   grid.appendChild(card);
+      // }
+      // Note: If you add cards dynamically after DOMContentLoaded, ensure to reattach click handlers.
+    })();
+  </script>
 
-    <!-- Example Tool 3 -->
-    <div class='tool-card' style='animation-delay: 0.6s;'>
-      <h3>SEO Audit Tool</h3>
-      <p>Check your website's performance for free.</p>
-      <a class='btn' href='#'>Analyze Now</a>
-    </div>
-  </div>
-
-  <b:section id='main-content' showaddelement='yes'/>
+  <b:include data='blog' name='all-body-content'/>
 </body>
 </html>
