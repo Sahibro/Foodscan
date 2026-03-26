@@ -1,217 +1,2349 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+```html
 <!DOCTYPE html>
-<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data'>
+<html lang="en">
 <head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
-  <title><data:blog.pageTitle/></title>
-  <b:include data='blog' name='all-head-content'/>
-
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-  <style type="text/css">
-    :root{
-      --brand:#0b5cff;
-      --accent:#00bfa6;
-      --bg:#f6f8fb;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --max-width:1200px;
-      --radius:12px;
-      --glass: rgba(255,255,255,0.6);
-    }
-    html,body{height:100%;margin:0;font-family:Inter, Roboto, Arial, sans-serif;background:linear-gradient(180deg,var(--bg),#ffffff);color:#0b1220}
-    a{color:var(--brand);text-decoration:none}
-    .wrap{max-width:var(--max-width);margin:20px auto;padding:16px;display:flex;gap:24px;align-items:flex-start}
-    header.site-header{width:100%;background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 8px 30px rgba(12,20,40,0.06);display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand-left{display:flex;align-items:center;gap:12px}
-    .brand-logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px}
-    .brand-text h1{margin:0;font-size:20px}
-    .brand-text p{margin:0;color:var(--muted);font-size:13px}
-    main.layout{display:flex;gap:20px;width:100%;margin-top:18px}
-    .left-col{flex:1}
-    .right-col{width:320px;flex:0 0 320px}
-    .searchbar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-    .searchbar input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e6e9ef;background:#fff}
-    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-    .tool-card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 8px 24px rgba(12,20,40,0.04);cursor:pointer;transition:transform .14s ease,box-shadow .14s ease;display:flex;flex-direction:column;gap:8px}
-    .tool-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(12,20,40,0.08)}
-    .tool-title{font-weight:600}
-    .tool-desc{font-size:13px;color:var(--muted)}
-    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:#f1f5f9;font-size:12px;color:#334155}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
-    .modal{width:100%;max-width:1100px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.5);display:flex;flex-direction:column;max-height:90vh}
-    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eef2f7}
-    .modal-body{padding:12px 16px;overflow:auto;flex:1;background:#fbfdff}
-    .modal-close{background:transparent;border:0;font-size:18px;cursor:pointer}
-    footer.site-footer{margin-top:18px;background:var(--card);border-radius:10px;padding:16px;box-shadow:0 8px 24px rgba(12,20,40,0.04);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .footer-col{min-width:180px}
-    .small{font-size:13px;color:var(--muted)}
-    @media (max-width:900px){
-      .wrap{padding:12px}
-      main.layout{flex-direction:column}
-      .right-col{width:100%;order:2}
-    }
-    *{transition:background .12s ease,color .12s ease}
-  </style>
-
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function(){
-      function openTool(toolId){
-        var backdrop = document.getElementById('modal-backdrop');
-        var title = document.getElementById('modal-title');
-        var body = document.getElementById('modal-body');
-        var def = window.__TOOLS__ && window.__TOOLS__[toolId];
-        if(!def){ title.textContent='Tool Not Found'; body.innerHTML = '<p class=\"small\">Tool definition missing. Edit template to add tool.</p>'; backdrop.style.display='flex'; return; }
-        title.textContent = def.title || 'Tool';
-        if(def.externalUrl){
-          body.innerHTML = '<iframe src=\"'+def.externalUrl+'\" style=\"width:100%;height:70vh;border:0;border-radius:6px\"></iframe>';
-        } else if(def.inlineHtml){
-          body.innerHTML = def.inlineHtml;
-        } else {
-          body.innerHTML = '<p class=\"small\">No content provided for this tool.</p>';
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPro — B2B Solutions & Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        backdrop.style.display='flex';
-      }
-      function closeModal(){
-        var backdrop = document.getElementById('modal-backdrop');
-        var body = document.getElementById('modal-body');
-        backdrop.style.display='none';
-        body.innerHTML = '';
-      }
-      function attachHandlers(){
-        document.querySelectorAll('[data-tool-id]').forEach(function(el){
-          el.addEventListener('click', function(){ openTool(this.getAttribute('data-tool-id')); });
-        });
-      }
-      attachHandlers();
-      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
-      document.getElementById('modal-backdrop').addEventListener('click', function(e){ if(e.target === this) closeModal(); });
-      var searchInput = document.getElementById('tool-search');
-      if(searchInput){
-        searchInput.addEventListener('input', function(){
-          var q = this.value.trim().toLowerCase();
-          document.querySelectorAll('.tool-card').forEach(function(card){
-            var t = (card.getAttribute('data-tool-title')||'').toLowerCase();
-            var d = (card.getAttribute('data-tool-desc')||'').toLowerCase();
-            card.style.display = (!q || t.indexOf(q)!==-1 || d.indexOf(q)!==-1) ? 'flex' : 'none';
-          });
-        });
-      }
-      window.__attachToolHandlers = attachHandlers;
-    });
-  </script>
+
+        :root {
+            --primary: #1a1a2e;
+            --primary-light: #16213e;
+            --accent: #0f3460;
+            --accent-bright: #4361ee;
+            --accent-glow: #4cc9f0;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7f8fc;
+            --bg-tertiary: #eef0f6;
+            --border: #e2e8f0;
+            --border-light: #f0f0f5;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.03);
+            --shadow-xl: 0 20px 50px -10px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-bright); border-radius: 3px; }
+
+        /* ============ HEADER / NAVBAR ============ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-bright), var(--accent-glow));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-bright);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-bright);
+            background: rgba(67, 97, 238, 0.06);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-bright);
+            background: rgba(67, 97, 238, 0.08);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent-bright), #6366f1) !important;
+            color: white !important;
+            padding: 10px 24px !important;
+            border-radius: var(--radius-sm) !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4) !important;
+            background: linear-gradient(135deg, #3b52d9, #5558e6) !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border: none;
+            background: transparent;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            padding: 140px 24px 100px;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(67,97,238,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(76,201,240,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px 6px 6px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-badge-dot {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--success), #00c896);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent-bright), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-bright), #6366f1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.45);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 64px;
+            padding-top: 48px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* ============ TRUSTED BY ============ */
+        .trusted {
+            padding: 60px 24px;
+            background: var(--bg-primary);
+        }
+
+        .trusted-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trusted-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .trusted-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            opacity: 0.4;
+        }
+
+        .trusted-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            letter-spacing: -0.5px;
+            transition: var(--transition);
+        }
+
+        .trusted-logo:hover {
+            opacity: 1;
+            color: var(--accent-bright);
+        }
+
+        /* ============ SECTION STYLES ============ */
+        .section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(67, 97, 238, 0.08);
+            color: var(--accent-bright);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ============ TOOLS GRID ============ */
+        .tools-section {
+            background: var(--bg-secondary);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-bright), var(--accent-glow));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon.blue { background: rgba(67, 97, 238, 0.1); color: var(--accent-bright); }
+        .tool-icon.green { background: rgba(6, 214, 160, 0.1); color: var(--success); }
+        .tool-icon.orange { background: rgba(255, 209, 102, 0.15); color: #e6a700; }
+        .tool-icon.pink { background: rgba(239, 71, 111, 0.1); color: var(--danger); }
+        .tool-icon.cyan { background: rgba(76, 201, 240, 0.1); color: var(--accent-glow); }
+        .tool-icon.purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+
+        .tool-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-launch {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-bright);
+            transition: var(--transition);
+        }
+
+        .tool-launch:hover {
+            gap: 10px;
+        }
+
+        /* ============ TOOL VIEWER / MODAL ============ */
+        .viewer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .viewer-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .viewer-panel {
+            background: white;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-overlay.active .viewer-panel {
+            transform: scale(1) translateY(0);
+        }
+
+        .viewer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            border-bottom: 1px solid var(--border-light);
+            flex-shrink: 0;
+        }
+
+        .viewer-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .viewer-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .viewer-close:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .viewer-body {
+            padding: 28px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* ============ TOOL UIs ============ */
+        .tool-ui label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .tool-ui input[type="text"],
+        .tool-ui input[type="number"],
+        .tool-ui input[type="url"],
+        .tool-ui input[type="email"],
+        .tool-ui textarea,
+        .tool-ui select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .tool-ui input:focus,
+        .tool-ui textarea:focus,
+        .tool-ui select:focus {
+            outline: none;
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background: white;
+        }
+
+        .tool-ui textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .tool-ui .input-group {
+            margin-bottom: 20px;
+        }
+
+        .tool-ui .btn-tool {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--accent-bright), #6366f1);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .tool-ui .btn-tool:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.35);
+        }
+
+        .tool-ui .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            word-break: break-all;
+            min-height: 60px;
+            position: relative;
+        }
+
+        .tool-ui .result-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Password Strength Meter */
+        .strength-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-tertiary);
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: var(--transition);
+            width: 0%;
+        }
+
+        /* Color Preview */
+        .color-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            margin-top: 12px;
+            transition: var(--transition);
+        }
+
+        /* Timer Display */
+        .timer-display {
+            font-size: 48px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            color: var(--text-primary);
+            padding: 24px;
+            letter-spacing: 2px;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .timer-controls button {
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .timer-controls button:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+        }
+
+        .timer-controls button.active-timer {
+            background: var(--accent-bright);
+            color: white;
+            border-color: var(--accent-bright);
+        }
+
+        /* ============ FEATURES SECTION ============ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            padding: 36px;
+            border-radius: var(--radius-lg);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--accent-bright), var(--accent-glow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ============ CTA SECTION ============ */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--accent));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(67,97,238,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            opacity: 0.7;
+            max-width: 500px;
+            margin: 0 auto 36px;
+            position: relative;
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--accent-bright);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .cta-section .btn-primary:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 80px 24px 0;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+            margin-top: 16px;
+            max-width: 320px;
+        }
+
+        .footer h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.65);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        /* ============ LEGAL PAGES (inline sections) ============ */
+        .legal-page {
+            display: none;
+            padding: 120px 24px 80px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .legal-page.active {
+            display: block;
+        }
+
+        .legal-page h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .legal-page .updated {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .legal-page h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 32px 0 12px;
+        }
+
+        .legal-page p, .legal-page li {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .legal-page ul {
+            padding-left: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-bright);
+            cursor: pointer;
+            margin-bottom: 24px;
+            border: none;
+            background: none;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            gap: 10px;
+        }
+
+        /* Main content wrapper */
+        #mainContent { display: block; }
+        #mainContent.hidden { display: none; }
+
+        /* ============ CONTACT FORM ============ */
+        .contact-form-wrapper {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .contact-form .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--bg-secondary);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background: white;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        /* ============ TOAST ============ */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 24px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-120%);
+                transition: var(--transition);
+                gap: 4px;
+            }
+
+            .nav-links.open {
+                transform: translateY(0);
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                width: 100%;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-stats {
+                gap: 32px;
+                flex-wrap: wrap;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .row-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form .input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .viewer-panel {
+                max-height: 95vh;
+                border-radius: var(--radius-lg);
+            }
+
+            .timer-display {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 120px 16px 60px; }
+            .section { padding: 60px 16px; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .hero-actions .btn { width: 100%; justify-content: center; }
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+        .stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+        .stagger.visible > *:nth-child(3) { transition-delay: 0.15s; }
+        .stagger.visible > *:nth-child(4) { transition-delay: 0.2s; }
+        .stagger.visible > *:nth-child(5) { transition-delay: 0.25s; }
+        .stagger.visible > *:nth-child(6) { transition-delay: 0.3s; }
+        .stagger.visible > * { opacity: 1; transform: translateY(0); }
+    </style>
 </head>
-
 <body>
-  <b:section class='main-wrapper' id='main-wrapper' showaddelement='no'>
-    <div class="wrap">
-      <header class="site-header" role="banner">
-        <div class="brand-left">
-          <div class="brand-logo">B2B</div>
-          <div class="brand-text">
-            <h1>Global B2B Solutions</h1>
-            <p class="small">Enterprise tools, integrations and workflows for global teams</p>
-          </div>
-        </div>
-        <div class="header-actions">
-          <div class="small">Contact: <a href="mailto:contact@example.com">contact@example.com</a></div>
-        </div>
-      </header>
 
-      <main class="layout" role="main">
-        <section class="left-col">
-          <div class="searchbar">
-            <input id="tool-search" placeholder="Search tools by name or description" aria-label="Search tools"/>
-          </div>
-
-          <section class="tools-grid" id="tools-grid" aria-live="polite">
-            <!-- TOOLS LIST START -->
-            <div class="tool-card" data-tool-id="crm" data-tool-title="CRM Dashboard" data-tool-desc="Leads, accounts and pipeline">
-              <div class="tag">CRM</div>
-              <div class="tool-title">CRM Dashboard</div>
-              <div class="tool-desc">Leads, accounts and pipeline overview</div>
-            </div>
-
-            <div class="tool-card" data-tool-id="analytics" data-tool-title="Analytics Studio" data-tool-desc="Sales and traffic analytics">
-              <div class="tag">Analytics</div>
-              <div class="tool-title">Analytics Studio</div>
-              <div class="tool-desc">KPIs, charts and reports</div>
-            </div>
-
-            <div class="tool-card" data-tool-id="integrations" data-tool-title="Integrations Hub" data-tool-desc="Connectors and APIs">
-              <div class="tag">Integrations</div>
-              <div class="tool-title">Integrations Hub</div>
-              <div class="tool-desc">Manage connectors to third party services</div>
-            </div>
-            <!-- TOOLS LIST END -->
-          </section>
-        </section>
-
-        <aside class="right-col" role="complementary">
-          <div style="background:var(--card);border-radius:10px;padding:14px;box-shadow:0 8px 24px rgba(12,20,40,0.04)">
-            <strong>About</strong>
-            <p class="small" style="margin-top:8px">हम global B2B solutions बनाते हैं — tools, integrations और workflows जो enterprise teams के लिए scaleable हों।</p>
-            <div style="margin-top:12px">
-              <strong class="small">Quick Links</strong>
-              <ul class="small" style="padding-left:16px;margin:8px 0 0 0">
-                <li><a href="#privacy">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-        </aside>
-      </main>
-
-      <footer class="site-footer" role="contentinfo">
-        <div class="footer-col">
-          <strong>About</strong>
-          <div class="small">Global B2B Solutions — tools and integrations for enterprise growth.</div>
-        </div>
-        <div class="footer-col" id="privacy">
-          <strong>Privacy Policy</strong>
-          <div class="small">We respect privacy. Update this section with your full policy text or link to a hosted policy page.</div>
-        </div>
-        <div class="footer-col" id="terms">
-          <strong>Terms</strong>
-          <div class="small">Add your Terms of Service here or link externally.</div>
-        </div>
-        <div class="footer-col" id="contact">
-          <strong>Contact</strong>
-          <div class="small">Email: <a href="mailto:contact@example.com">contact@example.com</a></div>
-          <div class="small">Location: Lucknow, India</div>
-        </div>
-      </footer>
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="#" class="logo" onclick="showMain(); return false;">
+            <div class="logo-icon">N</div>
+            <div class="logo-text">Nexus<span>Pro</span></div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active" onclick="showMain(); closeMobile();">Home</a></li>
+            <li><a href="#tools" onclick="showMain(); closeMobile();">Tools</a></li>
+            <li><a href="#features" onclick="showMain(); closeMobile();">Features</a></li>
+            <li><a href="#contact-section" onclick="showPage('contact'); closeMobile();">Contact</a></li>
+            <li><a href="#" class="nav-cta" onclick="scrollToTools(); closeMobile(); return false;">Get Started</a></li>
+        </ul>
+        <button class="mobile-toggle" id="mobileToggle" onclick="toggleMobile()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </div>
-  </b:section>
+</nav>
 
-  <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modal-header">
-        <div id="modal-title" style="font-weight:600">Tool</div>
-        <button id="modal-close-btn" class="modal-close" aria-label="Close">✕</button>
-      </div>
-      <div id="modal-body" class="modal-body"></div>
+<!-- ============ MAIN CONTENT ============ -->
+<div id="mainContent">
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <div class="hero-badge-dot">✓</div>
+                Trusted by 2,500+ businesses worldwide
+            </div>
+            <h1>Enterprise-Grade<br><span class="gradient-text">Business Tools</span><br>Built for Scale</h1>
+            <p>Streamline your B2B workflows with our suite of professional-grade tools. Free, fast, and built with precision for modern teams.</p>
+            <div class="hero-actions">
+                <a href="#tools" class="btn btn-primary" onclick="scrollToTools(); return false;">Explore Tools →</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2.5K+</div>
+                    <div class="stat-label">Active Businesses</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12M+</div>
+                    <div class="stat-label">Operations Processed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime Guarantee</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUSTED BY -->
+    <section class="trusted">
+        <div class="trusted-inner">
+            <div class="trusted-label">Trusted by industry leaders</div>
+            <div class="trusted-logos">
+                <span class="trusted-logo">Stripe</span>
+                <span class="trusted-logo">Notion</span>
+                <span class="trusted-logo">Vercel</span>
+                <span class="trusted-logo">Linear</span>
+                <span class="trusted-logo">Figma</span>
+                <span class="trusted-logo">Slack</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="section tools-section" id="tools">
+        <div class="section-inner">
+            <div class="section-header animate-in">
+                <div class="section-tag">⚡ Tools Suite</div>
+                <h2>Powerful Tools for Your Business</h2>
+                <p>Each tool is built with pure HTML, CSS, and JavaScript — no external dependencies required. Click to launch.</p>
+            </div>
+            <div class="tools-grid stagger" id="toolsGrid">
+                <!-- Tool cards rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+        <div class="section-inner">
+            <div class="section-header animate-in">
+                <div class="section-tag">✦ Why NexusPro</div>
+                <h2>Built for Modern Business</h2>
+                <p>Every feature designed with enterprise teams in mind — secure, fast, and infinitely scalable.</p>
+            </div>
+            <div class="features-grid stagger">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Enterprise Security</h3>
+                    <p>All tools run client-side. Your data never leaves your browser. Zero tracking, zero storage.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Performance</h3>
+                    <p>Pure HTML/CSS/JS tools load in milliseconds. No server roundtrips, no loading spinners.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Works perfectly on desktop, tablet, and mobile. Use tools anywhere, anytime.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Always Updated</h3>
+                    <p>Regular additions of new tools and improvements based on community feedback.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Precision Built</h3>
+                    <p>Each tool is tested extensively for accuracy and edge cases across all scenarios.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Team Friendly</h3>
+                    <p>Share tool links with teammates. Collaborate seamlessly without account requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section">
+        <div class="section-inner">
+            <h2>Ready to Streamline<br>Your Workflow?</h2>
+            <p>Join thousands of businesses that trust NexusPro for their daily operations.</p>
+            <a href="#tools" class="btn btn-primary" onclick="scrollToTools(); return false;">Start Using Tools — Free</a>
+        </div>
+    </section>
+</div>
+
+<!-- ============ LEGAL PAGES ============ -->
+<div class="legal-page" id="aboutPage">
+    <button class="back-btn" onclick="showMain()">← Back to Home</button>
+    <h1>About NexusPro</h1>
+    <p class="updated">Building tools that matter since 2024</p>
+    <p>NexusPro is a B2B-focused platform providing enterprise-grade tools that run entirely in your browser. We believe powerful software should be accessible, fast, and private.</p>
+    <h2>Our Mission</h2>
+    <p>We're on a mission to democratize business tools. Every company, from startups to enterprises, deserves access to professional-grade utilities without the overhead of complex software installations or expensive subscriptions.</p>
+    <h2>How It Works</h2>
+    <p>Every tool on NexusPro is built with pure HTML, CSS, and JavaScript. This means:</p>
+    <ul>
+        <li>Your data never leaves your browser — complete privacy by design</li>
+        <li>Tools load instantly with zero server dependency</li>
+        <li>Works offline once the page is loaded</li>
+        <li>No accounts, no tracking, no hidden costs</li>
+    </ul>
+    <h2>Our Team</h2>
+    <p>We're a team of developers and designers passionate about creating clean, efficient tools for modern businesses. Our background spans enterprise SaaS, fintech, and developer tooling.</p>
+    <h2>Contact Us</h2>
+    <p>Have questions or suggestions? We'd love to hear from you. Reach out at <strong>hello@nexuspro.io</strong> or use our <a href="#" onclick="showPage('contact'); return false;" style="color: var(--accent-bright);">contact form</a>.</p>
+</div>
+
+<div class="legal-page" id="privacyPage">
+    <button class="back-btn" onclick="showMain()">← Back to Home</button>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: January 2025</p>
+    <h2>1. Information We Collect</h2>
+    <p>NexusPro is designed with privacy as a core principle. Our tools run entirely client-side in your browser. We do not collect, store, or transmit any data you input into our tools.</p>
+    <h2>2. Analytics</h2>
+    <p>We may use anonymous, aggregated analytics to understand how our tools are used. This data does not contain any personally identifiable information and is used solely to improve our services.</p>
+    <h2>3. Cookies</h2>
+    <p>We use minimal cookies necessary for site functionality (such as theme preferences). We do not use tracking cookies or share any data with third parties.</p>
+    <h2>4. Third-Party Services</h2>
+    <p>Our website may use CDN services for font delivery. These services have their own privacy policies. We do not share your personal information with any third party.</p>
+    <h2>5. Data Security</h2>
+    <p>Since all tool processing happens in your browser, your data remains on your device at all times. We employ HTTPS encryption for all page loads.</p>
+    <h2>6. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+        <li>Know what data is collected (essentially none from tools)</li>
+        <li>Request deletion of any contact form submissions</li>
+        <li>Opt out of any analytics tracking</li>
+    </ul>
+    <h2>7. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date.</p>
+    <h2>8. Contact</h2>
+    <p>For privacy-related inquiries, contact us at <strong>privacy@nexuspro.io</strong></p>
+</div>
+
+<div class="legal-page" id="termsPage">
+    <button class="back-btn" onclick="showMain()">← Back to Home</button>
+    <h1>Terms of Service</h1>
+    <p class="updated">Last updated: January 2025</p>
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing and using NexusPro, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+    <h2>2. Use License</h2>
+    <p>Permission is granted to use NexusPro tools for personal and commercial purposes. You may not:</p>
+    <ul>
+        <li>Reverse engineer or attempt to extract the source code of proprietary tools</li>
+        <li>Use automated systems to scrape or overload our services</li>
+        <li>Redistribute our tools as your own product</li>
+        <li>Use the service for any illegal or unauthorized purpose</li>
+    </ul>
+    <h2>3. Disclaimer</h2>
+    <p>Tools are provided "as is" without warranties of any kind. While we strive for accuracy, NexusPro shall not be held liable for any errors in tool output or any damages arising from tool usage.</p>
+    <h2>4. Tool Availability</h2>
+    <p>We reserve the right to modify, suspend, or discontinue any tool at any time without prior notice.</p>
+    <h2>5. Limitation of Liability</h2>
+    <p>In no event shall NexusPro be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the service.</p>
+    <h2>6. Governing Law</h2>
+    <p>These terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>
+    <h2>7. Changes</h2>
+    <p>We reserve the right to update these terms at any time. Continued use of the service constitutes acceptance of modified terms.</p>
+</div>
+
+<div class="legal-page" id="contactPage">
+    <button class="back-btn" onclick="showMain()">← Back to Home</button>
+    <h1>Contact Us</h1>
+    <p class="updated">We'd love to hear from you</p>
+    <div class="contact-form-wrapper">
+        <form class="contact-form" onsubmit="handleContact(event)">
+            <div class="input-row">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" placeholder="John" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" placeholder="Doe" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Work Email</label>
+                <input type="email" placeholder="john@company.com" required>
+            </div>
+            <div class="form-group">
+                <label>Company</label>
+                <input type="text" placeholder="Acme Inc.">
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <select required>
+                    <option value="">Select a topic...</option>
+                    <option>General Inquiry</option>
+                    <option>Tool Request</option>
+                    <option>Bug Report</option>
+                    <option>Partnership</option>
+                    <option>Enterprise Plan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea placeholder="Tell us how we can help..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message →</button>
+        </form>
     </div>
-  </div>
+</div>
 
-  <script type="text/javascript">
-    window.__TOOLS__ = {
-      "crm": {
-        title: "CRM Dashboard",
-        inlineHtml: "<h3>CRM Dashboard</h3><p class='small'>Placeholder CRM. Replace with your HTML or set externalUrl.</p><div style='margin-top:12px'><button onclick=\"alert('Demo action')\" style='padding:8px 12px;border-radius:6px;border:0;background:var(--brand);color:#fff'>Run Demo</button></div>"
-      },
-      "analytics": {
-        title: "Analytics Studio",
-        externalUrl: "https://example.com/analytics-embed"
-      },
-      "integrations": {
-        title: "Integrations Hub",
-        inlineHtml: "<h3>Integrations Hub</h3><p class='small'>Connectors list</p><ul><li>Salesforce - Connected</li><li>HubSpot - Disconnected</li></ul>"
-      }
-    };
-  </script>
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo" onclick="showMain(); return false;" style="margin-bottom: 4px;">
+                    <div class="logo-icon">N</div>
+                    <div class="logo-text" style="color:white;">Nexus<span>Pro</span></div>
+                </a>
+                <p>Enterprise-grade business tools that run entirely in your browser. Secure, fast, and built for modern teams.</p>
+            </div>
+            <div>
+                <h4>Tools</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="openTool('wordCounter'); return false;">Word Counter</a></li>
+                    <li><a href="#" onclick="openTool('jsonFormatter'); return false;">JSON Formatter</a></li>
+                    <li><a href="#" onclick="openTool('passwordGen'); return false;">Password Generator</a></li>
+                    <li><a href="#" onclick="openTool('colorConverter'); return false;">Color Converter</a></li>
+                    <li><a href="#" onclick="openTool('base64'); return false;">Base64 Encoder</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showPage('about'); return false;">About Us</a></li>
+                    <li><a href="#" onclick="showPage('contact'); return false;">Contact</a></li>
+                    <li><a href="#features" onclick="showMain(); return false;">Features</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showPage('terms'); return false;">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">GDPR</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 NexusPro. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="GitHub">⌘</a>
+                <a href="#" aria-label="YouTube">▶</a>
+            </div>
+        </div>
+    </div>
+</footer>
 
-  <b:include data='blog' name='all-body-content'/>
+<!-- ============ TOOL VIEWER MODAL ============ -->
+<div class="viewer-overlay" id="viewerOverlay" onclick="closeViewer(event)">
+    <div class="viewer-panel" onclick="event.stopPropagation()">
+        <div class="viewer-header">
+            <h3 id="viewerTitle">Tool</h3>
+            <button class="viewer-close" onclick="closeViewerForce()">✕</button>
+        </div>
+        <div class="viewer-body" id="viewerBody">
+            <!-- Dynamic tool content -->
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ TOOLS DATA ============
+const tools = [
+    {
+        id: 'wordCounter',
+        title: 'Word Counter',
+        desc: 'Count words, characters, sentences, and paragraphs in real-time.',
+        icon: '📝',
+        color: 'blue'
+    },
+    {
+        id: 'jsonFormatter',
+        title: 'JSON Formatter',
+        desc: 'Beautify, minify, and validate JSON data with syntax highlighting.',
+        icon: '{ }',
+        color: 'green'
+    },
+    {
+        id: 'passwordGen',
+        title: 'Password Generator',
+        desc: 'Generate cryptographically strong passwords with custom rules.',
+        icon: '🔐',
+        color: 'pink'
+    },
+    {
+        id: 'colorConverter',
+        title: 'Color Converter',
+        desc: 'Convert between HEX, RGB, and HSL color formats instantly.',
+        icon: '🎨',
+        color: 'purple'
+    },
+    {
+        id: 'base64',
+        title: 'Base64 Encoder/Decoder',
+        desc: 'Encode or decode Base64 strings for APIs and data transfer.',
+        icon: '🔄',
+        color: 'cyan'
+    },
+    {
+        id: 'loremGenerator',
+        title: 'Lorem Ipsum Generator',
+        desc: 'Generate placeholder text for designs and mockups.',
+        icon: '📄',
+        color: 'orange'
+    },
+    {
+        id: 'markdownPreview',
+        title: 'Markdown Previewer',
+        desc: 'Write Markdown and see a live HTML preview side-by-side.',
+        icon: '📑',
+        color: 'blue'
+    },
+    {
+        id: 'urlEncode',
+        title: 'URL Encoder/Decoder',
+        desc: 'Encode or decode URLs for safe parameter handling.',
+        icon: '🔗',
+        color: 'green'
+    },
+    {
+        id: 'caseConverter',
+        title: 'Case Converter',
+        desc: 'Convert text between UPPER, lower, Title, and more cases.',
+        icon: 'Aa',
+        color: 'pink'
+    },
+    {
+        id: 'hashGenerator',
+        title: 'Hash Generator',
+        desc: 'Generate SHA-256 and other hash digests from your text.',
+        icon: '#️⃣',
+        color: 'purple'
+    },
+    {
+        id: 'timestampTool',
+        title: 'Timestamp Converter',
+        desc: 'Convert between Unix timestamps and human-readable dates.',
+        icon: '🕐',
+        color: 'cyan'
+    },
+    {
+        id: 'stopwatch',
+        title: 'Stopwatch & Timer',
+        desc: 'A precision stopwatch with lap tracking for productivity.',
+        icon: '⏱',
+        color: 'orange'
+    }
+];
+
+// ============ RENDER TOOL CARDS ============
+function renderToolCards() {
+    const grid = document.getElementById('toolsGrid');
+    grid.innerHTML = tools.map(t => `
+        <div class="tool-card" onclick="openTool('${t.id}')">
+            <div class="tool-icon ${t.color}">${t.icon}</div>
+            <h3>${t.title}</h3>
+            <p>${t.desc}</p>
+            <div class="tool-launch">Launch Tool <span>→</span></div>
+        </div>
+    `).join('');
+}
+renderToolCards();
+
+// ============ TOOL VIEWER ============
+function openTool(id) {
+    const tool = tools.find(t => t.id === id);
+    if (!tool) return;
+    document.getElementById('viewerTitle').textContent = tool.title;
+    document.getElementById('viewerBody').innerHTML = getToolHTML(id);
+    const overlay = document.getElementById('viewerOverlay');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // Init tool if needed
+    if (id === 'stopwatch') initStopwatch();
+    if (id === 'colorConverter') updateColorPreview();
+    if (id === 'timestampTool') setCurrentTimestamp();
+}
+
+function closeViewer(e) {
+    if (e.target === document.getElementById('viewerOverlay')) closeViewerForce();
+}
+
+function closeViewerForce() {
+    document.getElementById('viewerOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    if (stopwatchInterval) clearInterval(stopwatchInterval);
+}
+
+// ============ TOOL HTML GENERATORS ============
+function getToolHTML(id) {
+    switch(id) {
+        case 'wordCounter': return wordCounterHTML();
+        case 'jsonFormatter': return jsonFormatterHTML();
+        case 'passwordGen': return passwordGenHTML();
+        case 'colorConverter': return colorConverterHTML();
+        case 'base64': return base64HTML();
+        case 'loremGenerator': return loremGeneratorHTML();
+        case 'markdownPreview': return markdownPreviewHTML();
+        case 'urlEncode': return urlEncodeHTML();
+        case 'caseConverter': return caseConverterHTML();
+        case 'hashGenerator': return hashGeneratorHTML();
+        case 'timestampTool': return timestampToolHTML();
+        case 'stopwatch': return stopwatchHTML();
+        default: return '<p>Tool not found.</p>';
+    }
+}
+
+// 1. Word Counter
+function wordCounterHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Enter your text</label>
+            <textarea id="wcInput" placeholder="Type or paste your text here..." oninput="updateWordCount()"></textarea>
+        </div>
+        <div class="row-2" style="gap:12px;">
+            <div class="result-box" style="text-align:center;"><span class="result-label">Words</span><div id="wcWords" style="font-size:28px;font-weight:800;">0</div></div>
+            <div class="result-box" style="text-align:center;"><span class="result-label">Characters</span><div id="wcChars" style="font-size:28px;font-weight:800;">0</div></div>
+        </div>
+        <div class="row-2" style="gap:12px;margin-top:12px;">
+            <div class="result-box" style="text-align:center;"><span class="result-label">Sentences</span><div id="wcSentences" style="font-size:28px;font-weight:800;">0</div></div>
+            <div class="result-box" style="text-align:center;"><span class="result-label">Paragraphs</span><div id="wcParagraphs" style="font-size:28px;font-weight:800;">0</div></div>
+        </div>
+        <div class="result-box" style="margin-top:12px;text-align:center;"><span class="result-label">Reading Time</span><div id="wcReadTime" style="font-size:18px;font-weight:700;">0 min</div></div>
+    </div>`;
+}
+
+function updateWordCount() {
+    const text = document.getElementById('wcInput').value;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    const sentences = text.trim() ? (text.match(/[.!?]+/g) || []).length || (text.trim().length > 0 ? 1 : 0) : 0;
+    const paragraphs = text.trim() ? text.split(/\n\n+/).filter(p => p.trim()).length : 0;
+    const readTime = Math.ceil(words / 200);
+    document.getElementById('wcWords').textContent = words;
+    document.getElementById('wcChars').textContent = chars;
+    document.getElementById('wcSentences').textContent = sentences;
+    document.getElementById('wcParagraphs').textContent = paragraphs;
+    document.getElementById('wcReadTime').textContent = readTime + ' min';
+}
+
+// 2. JSON Formatter
+function jsonFormatterHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Paste JSON</label>
+            <textarea id="jsonInput" placeholder='{"key": "value", "array": [1, 2, 3]}'></textarea>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn-tool" onclick="formatJSON('beautify')">✨ Beautify</button>
+            <button class="btn-tool" onclick="formatJSON('minify')" style="background:linear-gradient(135deg, #06d6a0, #00c896);">⚡ Minify</button>
+            <button class="btn-tool" onclick="formatJSON('validate')" style="background:linear-gradient(135deg, #ffd166, #e6a700); color:#333;">✓ Validate</button>
+        </div>
+        <div class="result-box" id="jsonResult" style="display:none;">
+            <span class="result-label">Result</span>
+            <button class="copy-btn" onclick="copyText('jsonResultText')">Copy</button>
+            <pre id="jsonResultText" style="white-space:pre-wrap;margin:0;"></pre>
+        </div>
+    </div>`;
+}
+
+function formatJSON(mode) {
+    const input = document.getElementById('jsonInput').value;
+    const resultBox = document.getElementById('jsonResult');
+    const resultText = document.getElementById('jsonResultText');
+    resultBox.style.display = 'block';
+    try {
+        const parsed = JSON.parse(input);
+        if (mode === 'beautify') {
+            resultText.textContent = JSON.stringify(parsed, null, 2);
+            resultText.style.color = 'var(--text-primary)';
+        } else if (mode === 'minify') {
+            resultText.textContent = JSON.stringify(parsed);
+            resultText.style.color = 'var(--text-primary)';
+        } else {
+            resultText.textContent = '✅ Valid JSON!';
+            resultText.style.color = 'var(--success)';
+        }
+    } catch (e) {
+        resultText.textContent = '❌ Invalid JSON: ' + e.message;
+        resultText.style.color = 'var(--danger)';
+    }
+}
+
+// 3. Password Generator
+function passwordGenHTML() {
+    return `<div class="tool-ui">
+        <div class="row-2">
+            <div class="input-group">
+                <label>Length</label>
+                <input type="number" id="pwLength" value="16" min="4" max="128" oninput="generatePassword()">
+            </div>
+            <div class="input-group">
+                <label>Quantity</label>
+                <input type="number" id="pwCount" value="1" min="1" max="10" oninput="generatePassword()">
+            </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                <input type="checkbox" id="pwUpper" checked onchange="generatePassword()"> Uppercase (A-Z)
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                <input type="checkbox" id="pwLower" checked onchange="generatePassword()"> Lowercase (a-z)
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                <input type="checkbox" id="pwNumbers" checked onchange="generatePassword()"> Numbers (0-9)
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                <input type="checkbox" id="pwSymbols" checked onchange="generatePassword()"> Symbols (!@#$)
+            </label>
+        </div>
+        <button class="btn-tool" onclick="generatePassword()">🔐 Generate Password</button>
+        <div class="result-box" id="pwResult" style="margin-top:20px;">
+            <span class="result-label">Generated Password(s)</span>
+            <button class="copy-btn" onclick="copyText('pwResultText')">Copy</button>
+            <div id="pwResultText" style="font-size:16px;font-weight:600;letter-spacing:0.5px;">Click generate to start</div>
+        </div>
+        <div class="strength-bar"><div class="strength-bar-fill" id="pwStrength"></div></div>
+        <div id="pwStrengthLabel" style="font-size:12px;font-weight:600;margin-top:6px;color:var(--text-muted);"></div>
+    </div>`;
+}
+
+function generatePassword() {
+    const len = parseInt(document.getElementById('pwLength').value) || 16;
+    const count = parseInt(document.getElementById('pwCount').value) || 1;
+    let charset = '';
+    if (document.getElementById('pwUpper').checked) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (document.getElementById('pwLower').checked) charset += 'abcdefghijklmnopqrstuvwxyz';
+    if (document.getElementById('pwNumbers').checked) charset += '0123456789';
+    if (document.getElementById('pwSymbols').checked) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    if (!charset) charset = 'abcdefghijklmnopqrstuvwxyz';
+
+    const passwords = [];
+    for (let j = 0; j < count; j++) {
+        let pw = '';
+        const arr = new Uint32Array(len);
+        crypto.getRandomValues(arr);
+        for (let i = 0; i < len; i++) pw += charset[arr[i] % charset.length];
+        passwords.push(pw);
+    }
+
+    document.getElementById('pwResultText').textContent = passwords.join('\n');
+
+    // Strength
+    const strength = Math.min(100, (len / 32) * 40 + (charset.length / 90) * 60);
+    const bar = document.getElementById('pwStrength');
+    bar.style.width = strength + '%';
+    const label = document.getElementById('pwStrengthLabel');
+    if (strength < 30) { bar.style.background = 'var(--danger)'; label.textContent = 'Weak'; label.style.color = 'var(--danger)'; }
+    else if (strength < 60) { bar.style.background = 'var(--warning)'; label.textContent = 'Moderate'; label.style.color = '#e6a700'; }
+    else if (strength < 80) { bar.style.background = 'var(--accent-bright)'; label.textContent = 'Strong'; label.style.color = 'var(--accent-bright)'; }
+    else { bar.style.background = 'var(--success)'; label.textContent = 'Very Strong'; label.style.color = 'var(--success)'; }
+}
+
+// 4. Color Converter
+function colorConverterHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>HEX Color</label>
+            <input type="text" id="colorHex" value="#4361ee" oninput="convertColor('hex')" placeholder="#4361ee">
+        </div>
+        <div class="row-2">
+            <div class="input-group">
+                <label>RGB</label>
+                <input type="text" id="colorRgb" oninput="convertColor('rgb')" placeholder="67, 97, 238">
+            </div>
+            <div class="input-group">
+                <label>HSL</label>
+                <input type="text" id="colorHsl" oninput="convertColor('hsl')" placeholder="229, 83%, 60%">
+            </div>
+        </div>
+        <div class="color-preview" id="colorPreview" style="background:#4361ee;"></div>
+    </div>`;
+}
+
+function convertColor(from) {
+    try {
+        let r, g, b;
+        if (from === 'hex') {
+            const hex = document.getElementById('colorHex').value.replace('#', '');
+            if (hex.length !== 6 && hex.length !== 3) return;
+            const fullHex = hex.length === 3 ? hex.split('').map(c => c + c).join('') : hex;
+            r = parseInt(fullHex.substr(0, 2), 16);
+            g = parseInt(fullHex.substr(2, 2), 16);
+            b = parseInt(fullHex.substr(4, 2), 16);
+        } else if (from === 'rgb') {
+            const parts = document.getElementById('colorRgb').value.split(',').map(s => parseInt(s.trim()));
+            if (parts.length !== 3 || parts.some(isNaN)) return;
+            [r, g, b] = parts;
+        }
+        if (r === undefined) return;
+
+        // Update other fields
+        if (from !== 'hex') document.getElementById('colorHex').value = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+        if (from !== 'rgb') document.getElementById('colorRgb').value = `${r}, ${g}, ${b}`;
+
+        // HSL
+        const rn = r / 255, gn = g / 255, bn = b / 255;
+        const max = Math.max(rn, gn, bn), min = Math.min(rn, gn, bn);
+        let h, s, l = (max + min) / 2;
+        if (max === min) { h = s = 0; }
+        else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case rn: h = ((gn - bn) / d + (gn < bn ? 6 : 0)) / 6; break;
+                case gn: h = ((bn - rn) / d + 2) / 6; break;
+                case bn: h = ((rn - gn) / d + 4) / 6; break;
+            }
+        }
+        if (from !== 'hsl') document.getElementById('colorHsl').value = `${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%`;
+
+        document.getElementById('colorPreview').style.background = `rgb(${r},${g},${b})`;
+    } catch (e) {}
+}
+
+function updateColorPreview() {
+    convertColor('hex');
+}
+
+// 5. Base64
+function base64HTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Input Text</label>
+            <textarea id="b64Input" placeholder="Enter text to encode or Base64 to decode..."></textarea>
+        </div>
+        <div style="display:flex;gap:8px;">
+            <button class="btn-tool" onclick="doBase64('encode')">Encode →</button>
+            <button class="btn-tool" onclick="doBase64('decode')" style="background:linear-gradient(135deg, #06d6a0, #00c896);">← Decode</button>
+        </div>
+        <div class="result-box" id="b64Result" style="display:none;">
+            <span class="result-label">Result</span>
+            <button class="copy-btn" onclick="copyText('b64ResultText')">Copy</button>
+            <div id="b64ResultText"></div>
+        </div>
+    </div>`;
+}
+
+function doBase64(mode) {
+    const input = document.getElementById('b64Input').value;
+    const resultBox = document.getElementById('b64Result');
+    const resultText = document.getElementById('b64ResultText');
+    resultBox.style.display = 'block';
+    try {
+        if (mode === 'encode') {
+            resultText.textContent = btoa(unescape(encodeURIComponent(input)));
+            resultText.style.color = 'var(--text-primary)';
+        } else {
+            resultText.textContent = decodeURIComponent(escape(atob(input)));
+            resultText.style.color = 'var(--text-primary)';
+        }
+    } catch (e) {
+        resultText.textContent = '❌ Error: Invalid input';
+        resultText.style.color = 'var(--danger)';
+    }
+}
+
+// 6. Lorem Ipsum
+function loremGeneratorHTML() {
+    const loremWords = 'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum'.split(' ');
+    return `<div class="tool-ui">
+        <div class="row-2">
+            <div class="input-group">
+                <label>Paragraphs</label>
+                <input type="number" id="loremCount" value="3" min="1" max="20">
+            </div>
+            <div class="input-group">
+                <label>Words per Paragraph</label>
+                <input type="number" id="loremWords" value="50" min="10" max="200">
+            </div>
+        </div>
+        <button class="btn-tool" onclick="genLorem()">📄 Generate</button>
+        <div class="result-box" id="loremResult" style="display:none;">
+            <span class="result-label">Generated Text</span>
+            <button class="copy-btn" onclick="copyText('loremResultText')">Copy</button>
+            <div id="loremResultText" style="font-family:'Inter',sans-serif;white-space:pre-wrap;"></div>
+        </div>
+    </div>`;
+}
+
+function genLorem() {
+    const words = 'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit'.split(' ');
+    const count = parseInt(document.getElementById('loremCount').value) || 3;
+    const wpg = parseInt(document.getElementById('loremWords').value) || 50;
+    const paragraphs = [];
+    for (let i = 0; i < count; i++) {
+        let para = [];
+        for (let j = 0; j < wpg; j++) {
+            para.push(words[Math.floor(Math.random() * words.length)]);
+        }
+        para[0] = para[0].charAt(0).toUpperCase() + para[0].slice(1);
+        paragraphs.push(para.join(' ') + '.');
+    }
+    document.getElementById('loremResult').style.display = 'block';
+    document.getElementById('loremResultText').textContent = paragraphs.join('\n\n');
+}
+
+// 7. Markdown Previewer
+function markdownPreviewHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Write Markdown</label>
+            <textarea id="mdInput" oninput="previewMd()" placeholder="# Hello World\n\n**Bold text** and *italic text*\n\n- Item 1\n- Item 2\n\n> A blockquote\n\n\`code\` inline" style="min-height:180px;font-family:'JetBrains Mono',monospace;font-size:13px;"># Hello World
+
+**Bold text** and *italic text*
+
+- Item 1
+- Item 2
+- Item 3
+
+> This is a blockquote
+
+\`inline code\` and more text.</textarea>
+        </div>
+        <div class="result-box" style="font-family:'Inter',sans-serif;">
+            <span class="result-label">Preview</span>
+            <div id="mdPreview" style="line-height:1.8;"></div>
+        </div>
+    </div>`;
+}
+
+function previewMd() {
+    const md = document.getElementById('mdInput').value;
+    let html = md
+        .replace(/^### (.+)$/gm, '<h3 style="font-size:16px;font-weight:700;margin:12px 0 6px;">$1</h3>')
+        .replace(/^## (.+)$/gm, '<h2 style="font-size:20px;font-weight:700;margin:16px 0 8px;">$1</h2>')
+        .replace(/^# (.+)$/gm, '<h1 style="font-size:24px;font-weight:800;margin:16px 0 8px;">$1</h1>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code style="background:#f0f0f5;padding:2px 6px;border-radius:4px;font-size:13px;">$1</code>')
+        .replace(/^> (.+)$/gm, '<blockquote style="border-left:3px solid var(--accent-bright);padding-left:16px;color:var(--text-muted);margin:12px 0;">$1</blockquote>')
+        .replace(/^- (.+)$/gm, '<li style="margin-left:20px;">$1</li>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+    document.getElementById('mdPreview').innerHTML = html;
+}
+
+// Auto preview on open
+setTimeout(() => { if (document.getElementById('mdInput')) previewMd(); }, 100);
+
+// 8. URL Encoder/Decoder
+function urlEncodeHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Input</label>
+            <textarea id="urlInput" placeholder="Enter URL or text to encode/decode..."></textarea>
+        </div>
+        <div style="display:flex;gap:8px;">
+            <button class="btn-tool" onclick="doUrl('encode')">Encode →</button>
+            <button class="btn-tool" onclick="doUrl('decode')" style="background:linear-gradient(135deg, #06d6a0, #00c896);">← Decode</button>
+        </div>
+        <div class="result-box" id="urlResult" style="display:none;">
+            <span class="result-label">Result</span>
+            <button class="copy-btn" onclick="copyText('urlResultText')">Copy</button>
+            <div id="urlResultText"></div>
+        </div>
+    </div>`;
+}
+
+function doUrl(mode) {
+    const input = document.getElementById('urlInput').value;
+    document.getElementById('urlResult').style.display = 'block';
+    try {
+        document.getElementById('urlResultText').textContent = mode === 'encode' ? encodeURIComponent(input) : decodeURIComponent(input);
+        document.getElementById('urlResultText').style.color = 'var(--text-primary)';
+    } catch (e) {
+        document.getElementById('urlResultText').textContent = '❌ Error: ' + e.message;
+        document.getElementById('urlResultText').style.color = 'var(--danger)';
+    }
+}
+
+// 9. Case Converter
+function caseConverterHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Enter Text</label>
+            <textarea id="caseInput" placeholder="Type your text here..."></textarea>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn-tool" onclick="convertCase('upper')">UPPER</button>
+            <button class="btn-tool" onclick="convertCase('lower')" style="background:linear-gradient(135deg, #06d6a0, #00c896);">lower</button>
+            <button class="btn-tool" onclick="convertCase('title')" style="background:linear-gradient(135deg, #8b5cf6, #a78bfa);">Title Case</button>
+            <button class="btn-tool" onclick="convertCase('sentence')" style="background:linear-gradient(135deg, #ffd166, #e6a700);color:#333;">Sentence</button>
+            <button class="btn-tool" onclick="convertCase('camel')" style="background:linear-gradient(135deg, #ef476f, #f77f9a);">camelCase</button>
+            <button class="btn-tool" onclick="convertCase('snake')" style="background:linear-gradient(135deg, #4cc9f0, #3ab5dc);">snake_case</button>
+        </div>
+        <div class="result-box" id="caseResult" style="display:none;">
+            <span class="result-label">Result</span>
+            <button class="copy-btn" onclick="copyText('caseResultText')">Copy</button>
+            <div id="caseResultText"></div>
+        </div>
+    </div>`;
+}
+
+function convertCase(mode) {
+    const input = document.getElementById('caseInput').value;
+    document.getElementById('caseResult').style.display = 'block';
+    let result = '';
+    switch (mode) {
+        case 'upper': result = input.toUpperCase(); break;
+        case 'lower': result = input.toLowerCase(); break;
+        case 'title': result = input.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()); break;
+        case 'sentence': result = input.toLowerCase().replace(/(^\w|[.!?]\s*\w)/g, c => c.toUpperCase()); break;
+        case 'camel':
+            result = input.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, c) => c.toUpperCase());
+            break;
+        case 'snake': result = input.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''); break;
+    }
+    document.getElementById('caseResultText').textContent = result;
+}
+
+// 10. Hash Generator
+function hashGeneratorHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Input Text</label>
+            <textarea id="hashInput" placeholder="Enter text to hash..."></textarea>
+        </div>
+        <button class="btn-tool" onclick="generateHash()">🔒 Generate Hash</button>
+        <div class="result-box" id="hashResult" style="display:none;">
+            <span class="result-label">SHA-256 Hash</span>
+            <button class="copy-btn" onclick="copyText('hashResultText')">Copy</button>
+            <div id="hashResultText" style="word-break:break-all;"></div>
+        </div>
+    </div>`;
+}
+
+async function generateHash() {
+    const input = document.getElementById('hashInput').value;
+    const encoded = new TextEncoder().encode(input);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    document.getElementById('hashResult').style.display = 'block';
+    document.getElementById('hashResultText').textContent = hashHex;
+}
+
+// 11. Timestamp Converter
+function timestampToolHTML() {
+    return `<div class="tool-ui">
+        <div class="input-group">
+            <label>Unix Timestamp (seconds)</label>
+            <input type="number" id="tsInput" placeholder="e.g. 1700000000">
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn-tool" onclick="tsToDate()">→ To Date</button>
+            <button class="btn-tool" onclick="dateToTs()" style="background:linear-gradient(135deg, #06d6a0, #00c896);">→ To Timestamp</button>
+            <button class="btn-tool" onclick="setCurrentTimestamp()" style="background:linear-gradient(135deg, #8b5cf6, #a78bfa);">Now</button>
+        </div>
+        <div class="input-group" style="margin-top:16px;">
+            <label>Date/Time</label>
+            <input type="text" id="tsDateInput" placeholder="e.g. 2025-01-15T12:00:00">
+        </div>
+        <div class="result-box" id="tsResult" style="display:none;">
+            <span class="result-label">Result</span>
+            <button class="copy-btn" onclick="copyText('tsResultText')">Copy</button>
+            <div id="tsResultText"></div>
+        </div>
+    </div>`;
+}
+
+function setCurrentTimestamp() {
+    const now = Math.floor(Date.now() / 1000);
+    if (document.getElementById('tsInput')) document.getElementById('tsInput').value = now;
+    if (document.getElementById('tsDateInput')) document.getElementById('tsDateInput').value = new Date().toISOString();
+}
+
+function tsToDate() {
+    const ts = parseInt(document.getElementById('tsInput').value);
+    document.getElementById('tsResult').style.display = 'block';
+    if (isNaN(ts)) {
+        document.getElementById('tsResultText').textContent = '❌ Invalid timestamp';
+        return;
+    }
+    const d = new Date(ts * 1000);
+    document.getElementById('tsResultText').textContent = d.toISOString() + '\n' + d.toLocaleString();
+    document.getElementById('tsDateInput').value = d.toISOString();
+}
+
+function dateToTs() {
+    const dateStr = document.getElementById('tsDateInput').value;
+    document.getElementById('tsResult').style.display = 'block';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) {
+        document.getElementById('tsResultText').textContent = '❌ Invalid date';
+        return;
+    }
+    const ts = Math.floor(d.getTime() / 1000);
+    document.getElementById('tsResultText').textContent = ts.toString();
+    document.getElementById('tsInput').value = ts;
+}
+
+// 12. Stopwatch
+let stopwatchInterval = null;
+let stopwatchTime = 0;
+let stopwatchRunning = false;
+let laps = [];
+
+function stopwatchHTML() {
+    return `<div class="tool-ui" style="text-align:center;">
+        <div class="timer-display" id="swDisplay">00:00:00.000</div>
+        <div class="timer-controls">
+            <button id="swStartBtn" onclick="toggleStopwatch()">▶ Start</button>
+            <button onclick="lapStopwatch()">🏁 Lap</button>
+            <button onclick="resetStopwatch()">↻ Reset</button>
+        </div>
+        <div id="swLaps" style="margin-top:24px;text-align:left;"></div>
+    </div>`;
+}
+
+function initStopwatch() {
+    stopwatchTime = 0;
+    stopwatchRunning = false;
+    laps = [];
+    if (stopwatchInterval) clearInterval(stopwatchInterval);
+}
+
+function toggleStopwatch() {
+    const btn = document.getElementById('swStartBtn');
+    if (stopwatchRunning) {
+        clearInterval(stopwatchInterval);
+        stopwatchRunning = false;
+        btn.textContent = '▶ Start';
+        btn.classList.remove('active-timer');
+    } else {
+        const start = Date.now() - stopwatchTime;
+        stopwatchInterval = setInterval(() => {
+            stopwatchTime = Date.now() - start;
+            document.getElementById('swDisplay').textContent = formatTime(stopwatchTime);
+        }, 10);
+        stopwatchRunning = true;
+        btn.textContent = '⏸ Pause';
+        btn.classList.add('active-timer');
+    }
+}
+
+function resetStopwatch() {
+    clearInterval(stopwatchInterval);
+    stopwatchTime = 0;
+    stopwatchRunning = false;
+    laps = [];
+    document.getElementById('swDisplay').textContent = '00:00:00.000';
+    document.getElementById('swStartBtn').textContent = '▶ Start';
+    document.getElementById('swStartBtn').classList.remove('active-timer');
+    document.getElementById('swLaps').innerHTML = '';
+}
+
+function lapStopwatch() {
+    if (stopwatchRunning) {
+        laps.push(stopwatchTime);
+        const lapsDiv = document.getElementById('swLaps');
+        lapsDiv.innerHTML = laps.map((t, i) => `<div style="display:flex;justify-content:space-between;padding:8px 16px;background:${i%2===0?'var(--bg-secondary)':'white'};border-radius:6px;margin-bottom:4px;font-size:14px;">
+            <span style="font-weight:600;">Lap ${i + 1}</span>
+            <span style="font-family:'JetBrains Mono',monospace;">${formatTime(t)}</span>
+        </div>`).reverse().join('');
+    }
+}
+
+function formatTime(ms) {
+    const h = String(Math.floor(ms / 3600000)).padStart(2, '0');
+    const m = String(Math.floor((ms % 3600000) / 60000)).padStart(2, '0');
+    const s = String(Math.floor((ms % 60000) / 1000)).padStart(2, '0');
+    const mil = String(ms % 1000).padStart(3, '0');
+    return `${h}:${m}:${s}.${mil}`;
+}
+
+// ============ UTILITY FUNCTIONS ============
+function copyText(elementId) {
+    const text = document.getElementById(elementId).textContent;
+    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!'));
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============ NAVIGATION ============
+function showMain() {
+    document.getElementById('mainContent').classList.remove('hidden');
+    document.querySelectorAll('.legal-page').forEach(p => p.classList.remove('active'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showPage(page) {
+    document.getElementById('mainContent').classList.add('hidden');
+    document.querySelectorAll('.legal-page').forEach(p => p.classList.remove('active'));
+    document.getElementById(page + 'Page').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scrollToTools() {
+    showMain();
+    setTimeout(() => {
+        document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+}
+
+function handleContact(e) {
+    e.preventDefault();
+    showToast('✅ Message sent successfully!');
+    e.target.reset();
+}
+
+// ============ MOBILE NAV ============
+function toggleMobile() {
+    document.getElementById('navLinks').classList.toggle('open');
+}
+
+function closeMobile() {
+    document.getElementById('navLinks').classList.remove('open');
+}
+
+// ============ NAVBAR SCROLL ============
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// ============ INTERSECTION OBSERVER (ANIMATIONS) ============
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate-in, .stagger').forEach(el => observer.observe(el));
+
+// Smooth scroll for hash links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// ESC to close viewer
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeViewerForce();
+});
+</script>
 </body>
 </html>
+```
